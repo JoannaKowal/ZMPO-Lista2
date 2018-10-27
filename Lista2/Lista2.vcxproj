@@ -115,6 +115,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CCommand.h" />
+    <ClInclude Include="CMenu.h" />
+    <ClInclude Include="CMenuCommand.h" />
+    <ClInclude Include="CMenuItem.h" />
+    <ClInclude Include="Defaults.h" />
+    <ClInclude Include="PrintCommand.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CCommand.cpp" />
+    <ClCompile Include="CMenu.cpp" />
+    <ClCompile Include="CMenuCommand.cpp" />
+    <ClCompile Include="CMenuItem.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="PrintCommand.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
