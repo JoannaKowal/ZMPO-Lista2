@@ -20,7 +20,7 @@ CMenuCommand::~CMenuCommand(){
 
 void CMenuCommand::run(){
 	if (myCommand == nullptr) {
-		std::cout << EMPTY_COMMAND;
+		std::cout << EMPTY_COMMAND << std::endl;
 	}
 	else {
 		myCommand->runCommand();
