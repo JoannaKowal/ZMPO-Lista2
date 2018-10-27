@@ -2,8 +2,27 @@
 #include "PrintCommand.h"
 #include "CMenuItem.h"
 #include "CMenuCommand.h"
+void zadanie1() {
+	CMenu* root = new CMenu(std::string("Main"), std::string("main"));
+	CMenuCommand* add = new CMenuCommand(std::string("add"), std::string("add"));
+	CMenuCommand* del = new CMenuCommand(std::string("del"), std::string("del"));
+	CMenuCommand* print = new CMenuCommand(std::string("print"), std::string("print"));
+	CMenuCommand* delall = new CMenuCommand(std::string("delall"), std::string("delall"));
+	CMenuCommand* len = new CMenuCommand(std::string("len"), std::string("len"));
+	CMenuCommand* val = new CMenuCommand(std::string("val"), std::string("val"));
+
+	root->addItem(add);
+	root->addItem(del);
+	root->addItem(print);
+	root->addItem(delall);
+	root->addItem(len);
+	root->addItem(val);
+
+	root->run();
+	delete root;
+}
 int main() {
-	
+	zadanie1();
 }
 
 void przyklad1() {
@@ -40,6 +59,3 @@ void przyklad1() {
 	delete root;
 }
 
-void zadanie1() {
-
-}
