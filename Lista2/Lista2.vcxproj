@@ -115,20 +115,44 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AddTableCommand.h" />
     <ClInclude Include="CCommand.h" />
+    <ClInclude Include="CloneTableCommand.h" />
     <ClInclude Include="CMenu.h" />
     <ClInclude Include="CMenuCommand.h" />
     <ClInclude Include="CMenuItem.h" />
-    <ClInclude Include="Defaults.h" />
+    <ClInclude Include="Constants.h" />
+    <ClInclude Include="CTable.h" />
+    <ClInclude Include="CTableCommand.h" />
+    <ClInclude Include="CTableManager.h" />
+    <ClInclude Include="DelallTableCommand.h" />
+    <ClInclude Include="DelTableCommand.h" />
+    <ClInclude Include="LengthTableCommand.h" />
+    <ClInclude Include="NumberUtils.h" />
     <ClInclude Include="PrintCommand.h" />
+    <ClInclude Include="PrintTableCommand.h" />
+    <ClInclude Include="RenameTableCommand.h" />
+    <ClInclude Include="ValueTableCommand.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AddTableCommand.cpp" />
     <ClCompile Include="CCommand.cpp" />
+    <ClCompile Include="CloneTableCommand.cpp" />
     <ClCompile Include="CMenu.cpp" />
     <ClCompile Include="CMenuCommand.cpp" />
     <ClCompile Include="CMenuItem.cpp" />
+    <ClCompile Include="CTable.cpp" />
+    <ClCompile Include="CTableCommand.cpp" />
+    <ClCompile Include="CTableManager.cpp" />
+    <ClCompile Include="DelallTableCommand.cpp" />
+    <ClCompile Include="DelTableCommand.cpp" />
+    <ClCompile Include="LengthTableCommand.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="NumberUtils.cpp" />
     <ClCompile Include="PrintCommand.cpp" />
+    <ClCompile Include="PrintTableCommand.cpp" />
+    <ClCompile Include="RenameTableCommand.cpp" />
+    <ClCompile Include="ValueTableCommand.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

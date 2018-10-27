@@ -2,14 +2,35 @@
 #include "PrintCommand.h"
 #include "CMenuItem.h"
 #include "CMenuCommand.h"
+#include "CTableManager.h"
+#include "AddTableCommand.h"
+#include "DelallTableCommand.h"
+#include "DelTableCommand.h"
+#include "PrintTableCommand.h"
+#include "LengthTableCommand.h"
+#include "ValueTableCommand.h"
+#include "RenameTableCommand.h"
+#include "CloneTableCommand.h"
+
 void zadanie1() {
+	CTableManager* manager = new CTableManager();
 	CMenu* root = new CMenu(std::string("Main"), std::string("main"));
 	CMenuCommand* add = new CMenuCommand(std::string("add"), std::string("add"));
+	add->setCommand(new AddTableCommand(manager));
 	CMenuCommand* del = new CMenuCommand(std::string("del"), std::string("del"));
+	del->setCommand(new DelTableCommand(manager));
 	CMenuCommand* print = new CMenuCommand(std::string("print"), std::string("print"));
+	print->setCommand(new PrintTableCommand(manager));
 	CMenuCommand* delall = new CMenuCommand(std::string("delall"), std::string("delall"));
+	delall->setCommand(new DelallTableCommand(manager));
 	CMenuCommand* len = new CMenuCommand(std::string("len"), std::string("len"));
+	len->setCommand(new LengthTableCommand(manager));
 	CMenuCommand* val = new CMenuCommand(std::string("val"), std::string("val"));
+	val->setCommand(new ValueTableCommand(manager));
+	CMenuCommand* rename = new CMenuCommand(std::string("rename"), std::string("rename"));
+	rename->setCommand(new RenameTableCommand(manager));
+	CMenuCommand* clone = new CMenuCommand(std::string("clone"), std::string("clone"));
+	clone->setCommand(new CloneTableCommand(manager));
 
 	root->addItem(add);
 	root->addItem(del);
@@ -17,9 +38,12 @@ void zadanie1() {
 	root->addItem(delall);
 	root->addItem(len);
 	root->addItem(val);
+	root->addItem(rename);
+	root->addItem(clone);
 
 	root->run();
 	delete root;
+	delete manager;
 }
 int main() {
 	zadanie1();

@@ -6,7 +6,7 @@ void CMenu::run() {
 	while (!finished) {
 		printNameAndCommand();
 		printNames();
-		std::cin >> userInput;
+		std::getline(std::cin, userInput);
 		if (userInput == BACK) {
 			finished = true;
 		}
@@ -86,7 +86,7 @@ void CMenu::printNameAndCommand() {
 
 void CMenu::printNames(){
 	for (int i = 0; i < myCommands.size(); i++) {
-		std::cout << i + 1 << DOT << myCommands[i]->toString() << std::endl;
+		std::cout << i + 1 << FULL_STOP << myCommands[i]->toString() << std::endl;
 	}
 }
 

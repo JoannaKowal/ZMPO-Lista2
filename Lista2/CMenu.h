@@ -2,7 +2,7 @@
 #include "CMenuItem.h"
 #include <vector>
 #include <iostream>
-#include "Defaults.h"
+#include "Constants.h"
 
 const std::string INCORRECT_INDEX = "Niepoprawny index";
 const std::string INCORRECT_COMMAND = "Nie ma takiej pozycji";

@@ -1,7 +1,7 @@
 #pragma once
 #include "CCommand.h"
 #include "CMenuItem.h"
-#include "Defaults.h"
+#include "Constants.h"
 const std::string EMPTY_COMMAND = "Pusta komenda";
 class CMenuCommand: public CMenuItem {
 public:
