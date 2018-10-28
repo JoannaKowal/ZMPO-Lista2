@@ -6,5 +6,5 @@ DelallTableCommand::DelallTableCommand(CTableManager * manager): CTableCommand(m
 
 void DelallTableCommand::runCommand(){
 	manager->deleteAll();
-	std::cout << "Usunieto" << std::endl;
+	std::cout << PROMPT_DELETED_ALL_TABLES << std::endl;
 }

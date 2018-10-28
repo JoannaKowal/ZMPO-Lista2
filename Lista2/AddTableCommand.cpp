@@ -6,5 +6,5 @@ AddTableCommand::AddTableCommand(CTableManager * manager): CTableCommand(manager
 
 void AddTableCommand::runCommand(){
 	manager->addTable();
-	std::cout << "Dodano" << std::endl;
+	std::cout << PROMPT_DEFINED_TABLE<< std::endl;
 }

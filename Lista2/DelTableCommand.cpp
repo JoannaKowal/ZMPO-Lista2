@@ -4,7 +4,7 @@ DelTableCommand::DelTableCommand(CTableManager * manager): CTableCommand(manager
 }
 
 void DelTableCommand::runCommand(){
-	std::cout << "Podaj offset: ";
+	std::cout << ENTER_OFFSET;
 	std::string input;
 	std::getline(std::cin, input);
 	if (isNumber(input) && !overflowsInt(input)) {

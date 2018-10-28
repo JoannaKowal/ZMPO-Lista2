@@ -4,16 +4,16 @@ ValueTableCommand::ValueTableCommand(CTableManager * manager): CTableCommand(man
 }
 
 void ValueTableCommand::runCommand(){
-	std::cout << "Podaj offset w wektorze: ";
+	std::cout << ENTER_OFFSET_IN_VECTOR;
 	std::string input;
 	std::getline(std::cin, input);
 	if (isNumber(input) && !overflowsInt(input)) {
 		int offset = std::atoi(input.c_str());
-		std::cout << "Podaj offset w tablicy: ";
+		std::cout << ENTER_OFFSET_IN_TABLE;
 		std::getline(std::cin, input);
 		if (isNumber(input) && !overflowsInt(input)) {
 			int position = std::atoi(input.c_str());
-			std::cout << "Podaj wartosc: ";
+			std::cout << ENTER_VALUE;
 			std::getline(std::cin, input);
 			if (isNumber(input) && !overflowsInt(input)) {
 				int value = std::atoi(input.c_str());

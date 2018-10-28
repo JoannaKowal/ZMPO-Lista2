@@ -41,14 +41,11 @@ void zadanie1() {
 	root->addItem(rename);
 	root->addItem(clone);
 
+	root->printLeaves();
 	root->run();
 	delete root;
 	delete manager;
 }
-int main() {
-	zadanie1();
-}
-
 void przyklad1() {
 	CMenu* root = new CMenu(std::string("Menu glowne"), std::string("main"));
 	CMenu* podmenu1 = new CMenu(std::string("Podmenu1"), std::string("menu1"));
@@ -79,7 +76,14 @@ void przyklad1() {
 	CMenuCommand* ala = new CMenuCommand(std::string("Napisz 'Ala ma kota'"), std::string("ala"), printAla);
 	root->addItem(ala);
 
+	root->printLeaves();
 	root->run();
 	delete root;
 }
+
+int main() {
+	zadanie1();
+	//przyklad1();
+}
+
 

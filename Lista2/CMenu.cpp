@@ -94,6 +94,17 @@ std::string CMenu::toString(){
 	return name + SPACE + LEFT_BRACKET + command + RIGHT_BRACKET;
 }
 
+void CMenu::printLeaves(){
+	if (myCommands.size() == 0) {
+		std::cout << this->toString() << std::endl;
+	}
+	else {
+		for (int i = 0; i < myCommands.size(); i++) {
+			myCommands[i]->printLeaves();
+		}
+	}
+}
+
 bool CMenu::indexCorrect(int index){
 	return index >= 0 && index < myCommands.size();
 }

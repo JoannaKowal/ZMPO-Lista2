@@ -44,6 +44,10 @@ std::string CMenuCommand::getCommand(){
 	return command;
 }
 
+void CMenuCommand::printLeaves(){
+	std::cout << this->toString() << std::endl;
+}
+
 void CMenuCommand::deleteCommand(){
 	if (myCommand != nullptr) {
 		delete myCommand;

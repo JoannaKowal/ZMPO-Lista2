@@ -4,8 +4,8 @@
 #include <iostream>
 #include "Constants.h"
 
-const std::string INCORRECT_INDEX = "Niepoprawny index";
-const std::string INCORRECT_COMMAND = "Nie ma takiej pozycji";
+const std::string INCORRECT_INDEX = "Incorrect index";
+const std::string INCORRECT_COMMAND = "No such command";
 const std::string BACK = "back";
 
 class CMenu: public CMenuItem {
@@ -19,6 +19,7 @@ public:
 	std::string getName();
 	std::string getCommand();
 	std::string toString();
+	void printLeaves();
 private:
 	std::vector<CMenuItem*> myCommands;
 	void printNameAndCommand();

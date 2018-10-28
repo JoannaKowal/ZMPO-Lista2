@@ -4,12 +4,12 @@ RenameTableCommand::RenameTableCommand(CTableManager * manager): CTableCommand(m
 }
 
 void RenameTableCommand::runCommand(){
-	std::cout << "Podaj offset: ";
+	std::cout << ENTER_OFFSET;
 	std::string input;
 	std::getline(std::cin, input);
 	if (isNumber(input) && !overflowsInt(input)) {
 		int offset = std::atoi(input.c_str());
-		std::cout << "Podaj nazwe: ";
+		std::cout << ENTER_NAME;
 		std::getline(std::cin, input);
 		std::string name = input;
 		int error;

@@ -33,6 +33,7 @@ const std::string COMMAND_VAL = "val";
 
 //SUCCESS PROMPTS
 const std::string PROMPT_DELETED_ALL_TABLES = "Deleted all tables.";
+const std::string PROMPT_DEFINED_TABLE = "Defined new table.";
 const std::string PROMPT_DELETED_TABLE_AT_OFFSET = "Successfully deleted table at offset: ";
 const std::string PROMPT_DEFINED_VALUE_IN_TABLE_AT_OFFSET = "Successfully defined value in table at offset: ";
 const std::string PROMPT_EXIT = "Program finished by user. Press any key to exit.";
@@ -70,4 +71,9 @@ const std::string PARAM_OFFSET = "[offset]";
 const std::string PARAM_LEN = "[length]";
 const std::string PARAM_NAME = "[name]";
 const std::string PARAM_VAL = "[value]";
-
+const std::string ENTER_OFFSET = "Offset: ";
+const std::string ENTER_LENGTH = "Length: ";
+const std::string ENTER_NAME = "Name: ";
+const std::string ENTER_OFFSET_IN_VECTOR = "Offset in vector: ";
+const std::string ENTER_OFFSET_IN_TABLE = "Offset in table: ";
+const std::string ENTER_VALUE = "Value: ";

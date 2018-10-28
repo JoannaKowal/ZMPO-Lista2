@@ -4,7 +4,7 @@ PrintTableCommand::PrintTableCommand(CTableManager * manager): CTableCommand(man
 }
 
 void PrintTableCommand::runCommand(){
-	std::cout << "Podaj offset: ";
+	std::cout << ENTER_OFFSET;
 	std::string input;
 	std::getline(std::cin, input);
 	if (isNumber(input) && !overflowsInt(input)) {
@@ -16,8 +16,11 @@ void PrintTableCommand::runCommand(){
 		}
 		else {
 			if (error == ERR_TABLE_MANAGER_INDEX_OUT_OF_BOUNDS) {
-				std::cout << PROMPT_ERROR_TABLE_OFFSET_OUT_OF_BOUNDS;
+				std::cout << PROMPT_ERROR_TABLE_OFFSET_OUT_OF_BOUNDS << std::endl;
 			}
 		}
+	}
+	else {
+		std::cout << PROMPT_ERROR_INVALID_ARGUMENTS_FOR_COMMAND + APOSTROPHE + COMMAND_VAL + APOSTROPHE + FULL_STOP << std::endl;
 	}
 }

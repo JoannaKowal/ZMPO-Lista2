@@ -13,8 +13,9 @@ public:
 	std::string toString();
 	std::string getName();
 	std::string getCommand();
+	void printLeaves();
 	
 private:
-	CCommand * myCommand;
+	CCommand* myCommand;
 	void deleteCommand();
 };

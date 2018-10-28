@@ -4,12 +4,12 @@ LengthTableCommand::LengthTableCommand(CTableManager * manager): CTableCommand(m
 }
 
 void LengthTableCommand::runCommand(){
-	std::cout << "Podaj offset: ";
+	std::cout << ENTER_OFFSET;
 	std::string input;
 	std::getline(std::cin, input);
 	if (isNumber(input) && !overflowsInt(input)) {
 		int offset = std::atoi(input.c_str());
-		std::cout << "Podaj dlugosc: ";
+		std::cout << ENTER_LENGTH;
 		std::getline(std::cin, input);
 		if (isNumber(input) && !overflowsInt(input)) {
 			int length = std::atoi(input.c_str());
