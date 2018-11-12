@@ -1,16 +1,18 @@
 #include "CMenuCommand.h"
 
 
-CMenuCommand::CMenuCommand(std::string name, std::string command){
+CMenuCommand::CMenuCommand(std::string name, std::string command, std::string description){
 	this->name = name;
 	this->command = command;
+	this->description = description;
 	myCommand = nullptr;
 }
 
-CMenuCommand::CMenuCommand(std::string name, std::string command, CCommand* myCommand){
+CMenuCommand::CMenuCommand(std::string name, std::string command, CCommand* myCommand, std::string description){
 	this->name = name;
 	this->command = command;
 	this->myCommand = myCommand;
+	this->description = description;
 }
 
 CMenuCommand::~CMenuCommand(){
@@ -44,8 +46,25 @@ std::string CMenuCommand::getCommand(){
 	return command;
 }
 
-void CMenuCommand::printLeaves(){
-	std::cout << this->toString() << std::endl;
+void CMenuCommand::search(std::string commandName){
+	if (parent == nullptr) {
+		find(commandName, std::string());
+	}
+	else {
+		parent->search(commandName);
+	}
+}
+
+std::string CMenuCommand::save(){
+	std::string result;
+	result += "['";
+	result += this->name;
+	result += "','";
+	result += this->command;
+	result += "','";
+	result += this->description;
+	result += "']";
+	return result;
 }
 
 void CMenuCommand::deleteCommand(){
@@ -54,4 +73,17 @@ void CMenuCommand::deleteCommand(){
 		myCommand = nullptr;
 	}
 }
+
+void CMenuCommand::find(std::string commandName, std::string path){
+	if (this->command == commandName) {
+		std::cout << path + commandName << std::endl;
+	}
+}
+
+void CMenuCommand::printDescription(){
+	std::cout << description << std::endl;
+}
+	
+
+
 

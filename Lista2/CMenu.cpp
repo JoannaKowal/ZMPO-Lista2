@@ -11,20 +11,52 @@ void CMenu::run() {
 			finished = true;
 		}
 		else {
-			int index = indexOfCommand(userInput);
-			if (index == -1) {
-				std::cout << INCORRECT_COMMAND << std::endl;
+			std::vector<std::string> args;
+			splitCommand(userInput, args);
+			if (args[0] == "search") {
+				if (args.size() == 2) {
+					this->search(args[1]);
+				}
+				else {
+					std::cout << PROMPT_ERROR_WRONG_NUMBER_OF_ARGUMENTS << std::endl;
+				}
+			}
+			else if (args[0] == "help") {
+				if (args.size() == 2) {
+					bool found = false;
+					for (int i = 0; i < myCommands.size() && !found; i++) {
+						if (myCommands[i]->getCommand() == args[1]) {
+							myCommands[i]->printDescription();
+							found = true;
+						}
+					}
+					if (!found) {
+						std::cout << "brak komendy" << std::endl;
+					}
+				}
+				else {
+					std::cout << PROMPT_ERROR_WRONG_NUMBER_OF_ARGUMENTS << std::endl;
+				}
 			}
 			else {
-				myCommands[index]->run();
+				int index = indexOfCommand(userInput);
+				if (index == -1) {
+					std::cout << INCORRECT_COMMAND << std::endl;
+				}
+				else {
+					myCommands[index]->run();
+				}
 			}
 		}
+		
 	}	
 }
 
 CMenu::CMenu(std::string name, std::string command){
 	this->name = name;
 	this->command = command;
+	this->parent = nullptr;
+
 }
 
 CMenu::~CMenu(){
@@ -46,6 +78,7 @@ int CMenu::addItem(CMenuItem* menuItem){
 			return ERR_DUPLICATE_COMMAND;
 		}
 		else {
+			menuItem->setParent(this);
 			myCommands.push_back(menuItem);
 			return SUCCESS;
 		}
@@ -94,15 +127,35 @@ std::string CMenu::toString(){
 	return name + SPACE + LEFT_BRACKET + command + RIGHT_BRACKET;
 }
 
-void CMenu::printLeaves(){
-	if (myCommands.size() == 0) {
-		std::cout << this->toString() << std::endl;
+void CMenu::setParent(CMenuItem * parent){
+	this->parent = parent;
+}
+
+void CMenu::search(std::string commandName){
+	
+	if (parent == nullptr) {
+		find(commandName, std::string());
 	}
 	else {
-		for (int i = 0; i < myCommands.size(); i++) {
-			myCommands[i]->printLeaves();
+		parent->search(commandName);
+	}
+}
+
+std::string CMenu::save(){
+	std::string result;
+	result += "('";
+	result += this->name;
+	result += "','";
+	result += this->command;
+	result += "';";
+	for (int i = 0; i < myCommands.size(); i++) {
+		result += myCommands[i]->save();
+		if (i != myCommands.size() - 1) {
+			result += ",";
 		}
 	}
+	result += ")";
+	return result;
 }
 
 bool CMenu::indexCorrect(int index){
@@ -130,4 +183,25 @@ int CMenu::indexOfCommand(std::string command)
 	}
 	return index;
 }
+void CMenu::find(std::string commandName, std::string path) {
+	if (this->command == commandName) {
+		std::cout << path + commandName << std::endl;
+	}
+	for (int i = 0; i < myCommands.size(); i++) {
+		myCommands[i]->find(commandName, path + this->command + "->");
+	}
+}
+
+void CMenu::splitCommand(std::string currentCommand, std::vector<std::string> &args){
+	std::istringstream iss(currentCommand);
+	std::copy(std::istream_iterator<std::string>(iss),
+		std::istream_iterator<std::string>(),
+		std::back_inserter(args));
+}
+
+void CMenu::printDescription(){
+	std::cout << "brak komendy" << std::endl;
+}
+
+
 

@@ -3,7 +3,7 @@
 #include "NumberUtils.h"
 #include "Constants.h"
 using namespace numberUtils;
-class DelTableCommand:public CTableCommand {
+class DelTableCommand: public CTableCommand {
 public:
 	DelTableCommand(CTableManager* manager);
 	void runCommand();

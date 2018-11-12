@@ -7,5 +7,5 @@ public:
 	virtual ~CTableCommand();
 	virtual void runCommand() = 0;
 protected:
-	CTableManager * manager;
+	CTableManager* manager;
 };

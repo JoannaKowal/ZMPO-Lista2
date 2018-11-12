@@ -2,7 +2,10 @@
 #include "CMenuItem.h"
 #include <vector>
 #include <iostream>
+#include <sstream>
+#include <iterator>
 #include "Constants.h"
+
 
 const std::string INCORRECT_INDEX = "Incorrect index";
 const std::string INCORRECT_COMMAND = "No such command";
@@ -19,7 +22,10 @@ public:
 	std::string getName();
 	std::string getCommand();
 	std::string toString();
-	void printLeaves();
+	void setParent(CMenuItem* parent);
+	void search(std::string commandName);
+	std::string save();
+	
 private:
 	std::vector<CMenuItem*> myCommands;
 	void printNameAndCommand();
@@ -27,4 +33,8 @@ private:
 	bool indexCorrect(int index);
 	int indexOfName(std::string name);
 	int indexOfCommand(std::string command);
+	void find(std::string commandName, std::string path);
+	void splitCommand(std::string currentCommand, std::vector<std::string> &args);
+	void printDescription(); 
+
 };

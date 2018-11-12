@@ -49,6 +49,7 @@ const std::string PROMPT_ERROR_INVALID_ARGUMENTS_FOR_COMMAND = "Invalid argument
 const std::string PROMPT_ERROR_INVALID_LENGTH = "Invalid length.";
 const std::string PROMPT_ERROR_TABLE_OFFSET_OUT_OF_BOUNDS = "Table offset out of bounds.";
 const std::string PROMPT_ERROR_INCORRECT_ARGUMENT = "Incorrect argument.";
+const std::string PROMPT_ERROR_WRONG_NUMBER_OF_ARGUMENTS = "Wrong number of arguments.";
 
 //utility strings
 const std::string COMMAND_PROMPT = "$";
