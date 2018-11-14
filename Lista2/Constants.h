@@ -16,6 +16,7 @@ const int ERR_DUPLICATE_COMMAND = 2;
 const std::string COMMAND_TAB_LEN = "len";
 const std::string COMMAND_DELALL = "delall";
 const std::string COMMAND_EXIT = "exit";
+const std::string BACK = "back";
 
 //1 argument
 const std::string COMMAND_DEL = "del";
@@ -23,6 +24,8 @@ const std::string COMMAND_PRINT = "print";
 const std::string COMMAND_CLONE = "clone";
 const std::string COMMAND_DIFF = "diff";
 const std::string COMMAND_DIFF_POINTER = "diff2";
+const std::string COMMAND_SEARCH = "search";
+const std::string COMMAND_HELP= "help";
 
 //2 arguments
 const std::string COMMAND_RENAME = "rename";
@@ -50,6 +53,9 @@ const std::string PROMPT_ERROR_INVALID_LENGTH = "Invalid length.";
 const std::string PROMPT_ERROR_TABLE_OFFSET_OUT_OF_BOUNDS = "Table offset out of bounds.";
 const std::string PROMPT_ERROR_INCORRECT_ARGUMENT = "Incorrect argument.";
 const std::string PROMPT_ERROR_WRONG_NUMBER_OF_ARGUMENTS = "Wrong number of arguments.";
+const std::string PROMPT_ERROR_INCORRECT_COMMAND = "Brak komendy";
+const std::string INCORRECT_INDEX = "Incorrect index";
+const std::string EMPTY_COMMAND = "Pusta komenda";
 
 //utility strings
 const std::string COMMAND_PROMPT = "$";
@@ -64,10 +70,16 @@ const std::string COPY_CONSTRUCTOR = "kopiuj: ";
 const std::string DESTRUCTOR = "usuwam: ";
 const std::string LENGTH = "len: ";
 const std::string VALUES = "values: ";
-const std::string COMMA = ", ";
+const std::string COMMA = ",";
 const std::string LEFT_BRACKET = "(";
 const std::string RIGHT_BRACKET = ")";
 const std::string SPACE = " ";
+const std::string LEFT_BRACKET_APOSTROPHE = "('";
+const std::string APOSTROPHE_COMMA_APOSTROPHE = "','";
+const std::string APOSTROPHE_SEMICOLON = "';";
+const std::string ARROW = "->";
+const std::string LEFT_SQUARE_BRACKET_APOSTROPHE = "['";
+const std::string APOSTROPHE_RIGHT_SQUARE_BRACKET = "']";
 const std::string PARAM_OFFSET = "[offset]";
 const std::string PARAM_LEN = "[length]";
 const std::string PARAM_NAME = "[name]";
@@ -78,3 +90,15 @@ const std::string ENTER_NAME = "Name: ";
 const std::string ENTER_OFFSET_IN_VECTOR = "Offset in vector: ";
 const std::string ENTER_OFFSET_IN_TABLE = "Offset in table: ";
 const std::string ENTER_VALUE = "Value: ";
+const std::string EXPECTED_CHAR = "Expected: ";
+const std::string BUT_GOT = " but got: ";
+const std::string AT_INDEX = " at index: ";
+
+//utility chars
+const char CHAR_LEFT_BRACKET = '(';
+const char CHAR_APOSTROPHE = '\'';
+const char CHAR_COMMA = ',';
+const char CHAR_SEMICOLON = ';';
+const char CHAR_RIGHT_BRACKET = ')';
+const char CHAR_LEFT_SQUARE_BRACKET = '[';
+const char CHAR_RIGHT_SQUARE_BRACKET = ']';

@@ -4,8 +4,6 @@
 #include <iostream>
 
 const char MINUS = '-';
-const char DELIM = ' ';
-const std::string SEARCH = "search";
 const std::string MAX_INT_STRING = std::to_string(INT_MAX);
 const int MAX_INT_STRING_LENGTH = MAX_INT_STRING.size();
 

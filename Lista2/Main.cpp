@@ -13,24 +13,56 @@
 #include "CloneTableCommand.h"
 #include "ExitCommand.h"
 
+const std::string MAIN = "Main";
+const std::string MAIN_MENU = "Menu glowne";
+const std::string ALA_MENU = "Napisz Ala ma kota";
+const std::string SUBMENU_1 = "Podmenu1";
+const std::string SUBMENU_2 = "Podmenu2";
+const std::string INTERNET = "Uruchamiam przegladarke";
+const std::string RUN_BROWSER = "Uruchom przegladarke";
+const std::string TEST = "Test";
+const std::string PRINT_TEST = "Testuje";
+const std::string PRINT_ALA = "Ala ma kota";
+const std::string DEFAULT_COMMAND_MENU = "Default command";
+const std::string COMMAND_DEFCOM = "defcom";
+const std::string COMMAND_ALA = "ala";
+const std::string COMMAND_TEST = "test";
+const std::string COMMAND_INTERNET = "internet";
+const std::string COMMAND_MAIN = "main";
+const std::string COMMAND_MENU_1 = "menu1";
+const std::string COMMAND_MENU_2 = "menu2";
+const std::string DESCRIPTION_ADD = "Dodaje tabele";
+const std::string DESCRIPTION_DEL = "Usuwa tabele";
+const std::string DESCRIPTION_PRINT = "Wypisuje tabele";
+const std::string DESCRIPTION_DELALL = "Usuwa wszystkie tabele";
+const std::string DESCRIPTION_TAB_LEN = "Ustawia dlugosc tabeli";
+const std::string DESCRIPTION_VAL = "Ustawia wartosc na danym offsecie w tabeli";
+const std::string DESCRIPTION_RENAME = "Ustawia nazwe tabeli";
+const std::string DESCRIPTION_CLONE = "Kpiuje tabele";
+const std::string DESCRIPTION_INTERNET = "Uruchamia przegladarke";
+const std::string DESCRIPTION_TEST= "Wypisuje testuje";
+const std::string DESCRIPTION_DEFCOM = "Wypisuje komende domyslna";
+const std::string DESCRIPTION_ALA = "Wypisuje Ala ma kota";
+
+
 void zadanie1() {
 	CTableManager* manager = new CTableManager();
-	CMenu* root = new CMenu(std::string("Main"), std::string("main"));
-	CMenuCommand* add = new CMenuCommand(std::string("add"), std::string("add"), std::string("Dodaje tabele"));
+	CMenu* root = new CMenu(MAIN, COMMAND_MAIN);
+	CMenuCommand* add = new CMenuCommand(COMMAND_ADD, COMMAND_ADD, DESCRIPTION_ADD);
 	add->setCommand(new AddTableCommand(manager));
-	CMenuCommand* del = new CMenuCommand(std::string("del"), std::string("del"), std::string("Usuwa tabele"));
+	CMenuCommand* del = new CMenuCommand(COMMAND_DEL, COMMAND_DEL, DESCRIPTION_DEL);
 	del->setCommand(new DelTableCommand(manager));
-	CMenuCommand* print = new CMenuCommand(std::string("print"), std::string("print"), std::string("Wypisuje tabele"));
+	CMenuCommand* print = new CMenuCommand(COMMAND_PRINT, COMMAND_PRINT, DESCRIPTION_PRINT);
 	print->setCommand(new PrintTableCommand(manager));
-	CMenuCommand* delall = new CMenuCommand(std::string("delall"), std::string("delall"), std::string("Usuwa wszystkie tabele"));
+	CMenuCommand* delall = new CMenuCommand(COMMAND_DELALL, COMMAND_DELALL, DESCRIPTION_DELALL);
 	delall->setCommand(new DelallTableCommand(manager));
-	CMenuCommand* len = new CMenuCommand(std::string("len"), std::string("len"), std::string("Ustawia dlugosc tabeli"));
+	CMenuCommand* len = new CMenuCommand(COMMAND_TAB_LEN, COMMAND_TAB_LEN, DESCRIPTION_TAB_LEN);
 	len->setCommand(new LengthTableCommand(manager));
-	CMenuCommand* val = new CMenuCommand(std::string("val"), std::string("val"), std::string("Ustawia wartosc na danym offsecie w tabeli"));
+	CMenuCommand* val = new CMenuCommand(COMMAND_VAL, COMMAND_VAL, DESCRIPTION_VAL);
 	val->setCommand(new ValueTableCommand(manager));
-	CMenuCommand* rename = new CMenuCommand(std::string("rename"), std::string("rename"), std::string("Ustawia nazwe tabeli"));
+	CMenuCommand* rename = new CMenuCommand(COMMAND_RENAME, COMMAND_RENAME, DESCRIPTION_RENAME);
 	rename->setCommand(new RenameTableCommand(manager));
-	CMenuCommand* clone = new CMenuCommand(std::string("clone"), std::string("clone"), std::string("Kpiuje tabele"));
+	CMenuCommand* clone = new CMenuCommand(COMMAND_CLONE, COMMAND_CLONE, DESCRIPTION_CLONE);
 	clone->setCommand(new CloneTableCommand(manager));
 
 	root->addItem(add);
@@ -52,40 +84,49 @@ void zadanie1() {
 	delete manager;
 }
 void przyklad1() {
-	CMenu* root = new CMenu(std::string("Menu glowne"), std::string("main"));
-	CMenu* podmenu1 = new CMenu(std::string("Podmenu1"), std::string("menu1"));
+	CMenu* root = new CMenu(MAIN_MENU, COMMAND_MAIN);
+	CMenu* podmenu1 = new CMenu(SUBMENU_1, COMMAND_MENU_1);
 
-	CCommand* runInternet = new PrintCommand(std::string("Uruchamiam internet"));
-	CMenuCommand* internet = new CMenuCommand(std::string("Uruchom przegladarke"), std::string("internet"), runInternet, std::string("uruchamia internet"));
+	CCommand* runInternet = new PrintCommand(INTERNET);
+	CMenuCommand* internet = new CMenuCommand(RUN_BROWSER, COMMAND_INTERNET, runInternet, DESCRIPTION_INTERNET);
 	
-	CMenu* podmenuPodmenu1 = new CMenu(std::string("Podmenu1"), std::string("menu1"));
+	CMenu* podmenuPodmenu1 = new CMenu(SUBMENU_1, COMMAND_MENU_1);
 
 	podmenu1->addItem(internet);
 	podmenu1->addItem(podmenuPodmenu1);
 
 	root->addItem(podmenu1);
 
-	CMenu* podmenu2 = new CMenu(std::string("Podmenu2"), std::string("menu2"));
+	CMenu* podmenu2 = new CMenu(SUBMENU_2, COMMAND_MENU_2);
 
-	CCommand* cmdTest = new PrintCommand(std::string("Testuje"));
-	CMenuCommand* test = new CMenuCommand(std::string("Test"), std::string("test"), cmdTest, std::string("wypisuje testuje"));
+	CCommand* cmdTest = new PrintCommand(PRINT_TEST);
+	CMenuCommand* test = new CMenuCommand(TEST, COMMAND_TEST, cmdTest, DESCRIPTION_TEST);
 
 	CCommand* cmdDefcom = new CCommand();
-	CMenuCommand* defcom = new CMenuCommand(std::string("Default command"), std::string("defcom"), cmdDefcom, std::string("Wypisuje komende domyslna"));
+	CMenuCommand* defcom = new CMenuCommand(DEFAULT_COMMAND_MENU, COMMAND_DEFCOM, cmdDefcom, DESCRIPTION_DEFCOM);
 
 	podmenu2->addItem(test);
 	podmenu2->addItem(defcom);
 	root->addItem(podmenu2);
 
-	CCommand* printAla = new PrintCommand("Ala ma kota");
-	CMenuCommand* ala = new CMenuCommand(std::string("Napisz Ala ma kota"), std::string("ala"), printAla, std::string("Wypisuje Ala ma kota"));
+	CCommand* printAla = new PrintCommand(PRINT_ALA);
+	CMenuCommand* ala = new CMenuCommand(ALA_MENU, COMMAND_ALA, printAla, DESCRIPTION_ALA);
 	root->addItem(ala);
 
+	//Zapis do stringa i czytanie ze stringa
 	std::cout << root->save();
 	std::cout << std::endl << std::endl;
 	std::string tree = root->save();
 	root->saveFromString(tree, 0);
-	std::cout << root->save();
+	std::cout << root->save() << std::endl;
+	std::cout << std::endl << std::endl;
+
+	//Test
+	/*root->saveFromString(std::string("(Ala','Ma')"), 0);
+	root->saveFromString(std::string("('Ala''Ma')"), 0);
+	root->saveFromString(std::string("('Ala','Ma'()"), 0);
+	root->saveFromString(std::string("('Ala','Ma';[ala'])"), 0);*/
+
 	root->run();
 	delete root;
 }

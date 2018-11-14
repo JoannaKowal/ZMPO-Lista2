@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include "Constants.h"
 class CMenuItem {
 
 public:
@@ -18,7 +19,8 @@ public:
 	virtual std::string getDescription();
 	virtual std::string save() = 0;
 	virtual int saveFromString(std::string tree, int startIndex) = 0;
-
+	virtual void printParseError(char expectedChar, char actualChar, int stringIndex);
+		
 protected:
 	std::string command;
 	std::string name;

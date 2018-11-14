@@ -13,7 +13,7 @@ void CMenu::run() {
 		else {
 			std::vector<std::string> args;
 			splitCommand(userInput, args);
-			if (args[0] == "search") {
+			if (args[0] == COMMAND_SEARCH) {
 				if (args.size() == 2) {
 					this->search(args[1]);
 				}
@@ -21,7 +21,7 @@ void CMenu::run() {
 					std::cout << PROMPT_ERROR_WRONG_NUMBER_OF_ARGUMENTS << std::endl;
 				}
 			}
-			else if (args[0] == "help") {
+			else if (args[0] == COMMAND_HELP) {
 				if (args.size() == 2) {
 					bool found = false;
 					for (int i = 0; i < myCommands.size() && !found; i++) {
@@ -31,7 +31,7 @@ void CMenu::run() {
 						}
 					}
 					if (!found) {
-						std::cout << "brak komendy" << std::endl;
+						std::cout << PROMPT_ERROR_INCORRECT_COMMAND << std::endl;
 					}
 				}
 				else {
@@ -41,7 +41,7 @@ void CMenu::run() {
 			else {
 				int index = indexOfCommand(userInput);
 				if (index == -1) {
-					std::cout << INCORRECT_COMMAND << std::endl;
+					std::cout << PROMPT_ERROR_INCORRECT_COMMAND << std::endl;
 				}
 				else {
 					myCommands[index]->run();
@@ -149,18 +149,18 @@ void CMenu::search(std::string commandName){
 
 std::string CMenu::save(){
 	std::string result;
-	result += "('";
+	result += LEFT_BRACKET_APOSTROPHE;
 	result += this->name;
-	result += "','";
+	result += APOSTROPHE_COMMA_APOSTROPHE;
 	result += this->command;
-	result += "';";
+	result += APOSTROPHE_SEMICOLON;
 	for (int i = 0; i < myCommands.size(); i++) {
 		result += myCommands[i]->save();
 		if (i != myCommands.size() - 1) {
-			result += ",";
+			result += COMMA;
 		}
 	}
-	result += ")";
+	result += RIGHT_BRACKET;
 	return result;
 }
 
@@ -174,72 +174,100 @@ int CMenu::saveFromString(std::string tree, int startIndex){
 	std::string name;
 	std::string command;
 	std::vector<CMenuItem*> children;
-	if (tree.at(startIndex) == '(') {
+	if (tree.at(startIndex) == CHAR_LEFT_BRACKET) {
 		startIndex++;
-		if (tree.at(startIndex) == '\'') {
+		if (tree.at(startIndex) == CHAR_APOSTROPHE) {
 			startIndex++;
 			currentIndex = startIndex;
-			while (currentIndex < length && tree.at(currentIndex) != '\'') {
+			while (currentIndex < length && tree.at(currentIndex) != CHAR_APOSTROPHE) {
 						currentIndex++;
 			}
 			name = tree.substr(startIndex, currentIndex - startIndex);
 			currentIndex++;
-			if (tree.at(currentIndex) == ',') {
+			if (tree.at(currentIndex) == CHAR_COMMA) {
 				currentIndex++;
-				if(tree.at(currentIndex) == '\''){
+				if(tree.at(currentIndex) == CHAR_APOSTROPHE){
 					currentIndex++;
 					startIndex = currentIndex;
-					while (currentIndex < length && tree.at(currentIndex) != '\'') {
+					while (currentIndex < length && tree.at(currentIndex) != CHAR_APOSTROPHE) {
 						currentIndex++;
 					}
 					command = tree.substr(startIndex, currentIndex - startIndex);
 					currentIndex++;
-				}
-			}
-			if (tree.at(currentIndex) == ';') {
-				currentIndex++;
-				CMenuItem* child = nullptr;
-				while (tree.at(currentIndex) != ')') {
-					int nextIndex;
-					if (tree.at(currentIndex) == '(') {
-						child = new CMenu();
-						nextIndex = child->saveFromString(tree, currentIndex);
-					}
-					else if(tree.at(currentIndex) == '['){
-						child = new CMenuCommand();
-						nextIndex = child->saveFromString(tree, currentIndex);
+					if (tree.at(currentIndex) == CHAR_SEMICOLON) {
+						currentIndex++;
+						CMenuItem* child = nullptr;
+						while (tree.at(currentIndex) != CHAR_RIGHT_BRACKET) {
+							int nextIndex;
+							if (tree.at(currentIndex) == CHAR_LEFT_BRACKET) {
+								child = new CMenu();
+								nextIndex = child->saveFromString(tree, currentIndex);
+							}
+							else if (tree.at(currentIndex) == CHAR_LEFT_SQUARE_BRACKET) {
+								child = new CMenuCommand();
+								nextIndex = child->saveFromString(tree, currentIndex);
+							}
+							else {
+								nextIndex = -1;
+							}
+							if (nextIndex < 0) {
+								if (child != nullptr) {
+									delete child;
+								}
+								for (int i = 0; i < children.size(); i++) {
+									delete children[i];
+								}
+								return nextIndex;
+							}
+							else {
+								currentIndex = nextIndex;
+								children.push_back(child);
+								child->setParent(this);
+								if (tree.at(currentIndex) == CHAR_COMMA) {
+									currentIndex++;
+								}
+							}
+						}
+						if (tree.at(currentIndex == CHAR_RIGHT_BRACKET)) {
+							this->myCommands = children;
+							this->setName(name);
+							this->setCommandName(command);
+							return currentIndex + 1;
+						}
+						else {
+							char actualChar = tree.at(currentIndex);
+							printParseError(CHAR_RIGHT_BRACKET, actualChar, currentIndex);
+							return -1;
+						}
 					}
 					else {
-						nextIndex = -1;
-					}
-					if (nextIndex < 0) {
-						if (child != nullptr) {
-							delete child;
-						}
-						for (int i = 0; i < children.size(); i++) {
-							delete children[i];
-						}
-						return nextIndex;
-					}
-					else {
-						currentIndex = nextIndex;
-						children.push_back(child);
-						child->setParent(this);
-						if (tree.at(currentIndex) == ',') {
-							currentIndex++;
-						}
+						char actualChar = tree.at(currentIndex);
+						printParseError(CHAR_SEMICOLON, actualChar, currentIndex);
+						return -1;
 					}
 				}
-				if (tree.at(currentIndex == ')')) {
-					this->myCommands = children;
-					this->setName(name);
-					this->setCommandName(command);
-					return currentIndex + 1;
+				else {
+					char actualChar = tree.at(currentIndex);
+					printParseError(CHAR_APOSTROPHE, actualChar, currentIndex);
+					return -1;
 				}
 			}
-
+			else {
+				char actualChar = tree.at(currentIndex);
+				printParseError(CHAR_COMMA, actualChar, currentIndex);
+				return -1;
+			}	
 		}
-		
+		else {
+			char actualChar = tree.at(startIndex);
+			printParseError(CHAR_APOSTROPHE, actualChar, startIndex);
+			return -1;
+		}	
+	}
+	else {
+		char actualChar = tree.at(startIndex);
+		printParseError(CHAR_LEFT_BRACKET, actualChar, startIndex);
+		return -1;
 	}
 	
 	
@@ -275,7 +303,7 @@ void CMenu::find(std::string commandName, std::string path) {
 		std::cout << path + commandName << std::endl;
 	}
 	for (int i = 0; i < myCommands.size(); i++) {
-		myCommands[i]->find(commandName, path + this->command + "->");
+		myCommands[i]->find(commandName, path + this->command + ARROW);
 	}
 }
 
@@ -287,7 +315,7 @@ void CMenu::splitCommand(std::string currentCommand, std::vector<std::string> &a
 }
 
 void CMenu::printDescription(){
-	std::cout << "brak komendy" << std::endl;
+	std::cout << PROMPT_ERROR_INCORRECT_COMMAND << std::endl;
 }
 
 

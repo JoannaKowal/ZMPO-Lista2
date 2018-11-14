@@ -66,13 +66,13 @@ void CMenuCommand::search(std::string commandName){
 
 std::string CMenuCommand::save(){
 	std::string result;
-	result += "['";
+	result += LEFT_SQUARE_BRACKET_APOSTROPHE;
 	result += this->name;
-	result += "','";
+	result += APOSTROPHE_COMMA_APOSTROPHE;
 	result += this->command;
-	result += "','";
+	result += APOSTROPHE_COMMA_APOSTROPHE;
 	result += this->description;
-	result += "']";
+	result += APOSTROPHE_RIGHT_SQUARE_BRACKET;
 	return result;
 }
 
@@ -82,48 +82,75 @@ int CMenuCommand::saveFromString(std::string tree, int startIndex){
 	std::string name;
 	std::string command;
 	std::string description;
-	if (tree.at(currentIndex) == '[') {
+	if (tree.at(currentIndex) == CHAR_LEFT_SQUARE_BRACKET) {
 		currentIndex++;
-		if (tree.at(currentIndex) == '\'') {
+		if (tree.at(currentIndex) == CHAR_APOSTROPHE) {
 			currentIndex++;
 			startIndex = currentIndex;
-			while (currentIndex < length && tree.at(currentIndex) != '\'') {
+			while (currentIndex < length && tree.at(currentIndex) != CHAR_APOSTROPHE) {
 				currentIndex++;
 			}
 			name = tree.substr(startIndex, currentIndex - startIndex);
 			currentIndex++;
-			if (tree.at(currentIndex) == ',') {
+			if (tree.at(currentIndex) == CHAR_COMMA) {
 				currentIndex++;
-				if (tree.at(currentIndex) == '\'') {
+				if (tree.at(currentIndex) == CHAR_APOSTROPHE) {
 					currentIndex++;
 					startIndex = currentIndex;
-					while (currentIndex < length && tree.at(currentIndex) != '\'') {
+					while (currentIndex < length && tree.at(currentIndex) != CHAR_APOSTROPHE) {
 						currentIndex++;
 					}
 					command = tree.substr(startIndex, currentIndex - startIndex);
 					currentIndex++;
-					if (tree.at(currentIndex) == ',') {
+					if (tree.at(currentIndex) == CHAR_COMMA) {
 						currentIndex++;
-						if (tree.at(currentIndex) == '\'') {
+						if (tree.at(currentIndex) == CHAR_APOSTROPHE) {
 							currentIndex++;
 							startIndex = currentIndex;
-							while (currentIndex < length && tree.at(currentIndex) != '\'') {
+							while (currentIndex < length && tree.at(currentIndex) != CHAR_APOSTROPHE) {
 								currentIndex++;
 							}
 							description = tree.substr(startIndex, currentIndex - startIndex);
 							currentIndex++;
-							if (tree.at(currentIndex == ']')) {
+							if (tree.at(currentIndex == CHAR_RIGHT_SQUARE_BRACKET)) {
 								this->setName(name);
 								this->setCommandName(command);
 								this->setDescription(description);
 								return currentIndex + 1;
 							}
+							else {
+								char actualChar = tree.at(currentIndex);
+								printParseError(CHAR_RIGHT_SQUARE_BRACKET, actualChar, currentIndex);
+							}
 						}
-						
+						else {
+							char actualChar = tree.at(currentIndex);
+							printParseError(CHAR_APOSTROPHE, actualChar, currentIndex);
+						}				
+					}
+					else {
+						char actualChar = tree.at(currentIndex);
+						printParseError(CHAR_COMMA, actualChar, currentIndex);
 					}
 				}
+				else {
+					char actualChar = tree.at(currentIndex);
+					printParseError(CHAR_APOSTROPHE, actualChar, currentIndex);
+				}
+			}
+			else {
+				char actualChar = tree.at(currentIndex);
+				printParseError(CHAR_COMMA, actualChar, currentIndex);
 			}
 		}
+		else {
+			char actualChar = tree.at(currentIndex);
+			printParseError(CHAR_APOSTROPHE, actualChar, currentIndex);
+		}
+	}
+	else {
+		char actualChar = tree.at(currentIndex);
+		printParseError(CHAR_LEFT_SQUARE_BRACKET, actualChar, currentIndex);	
 	}
 }
 

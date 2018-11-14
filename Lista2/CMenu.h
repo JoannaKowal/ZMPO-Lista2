@@ -8,10 +8,6 @@
 #include "CMenuCommand.h"
 
 
-const std::string INCORRECT_INDEX = "Incorrect index";
-const std::string INCORRECT_COMMAND = "No such command";
-const std::string BACK = "back";
-
 class CMenu: public CMenuItem {
 public:
 	CMenu();
