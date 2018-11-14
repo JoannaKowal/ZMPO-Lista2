@@ -42,6 +42,11 @@ void zadanie1() {
 	root->addItem(rename);
 	root->addItem(clone);
 
+	std::cout << root->save();
+	std::cout << std::endl << std::endl;
+	std::string tree = root->save();
+	root->saveFromString(tree, 0);
+	std::cout << root->save();
 	root->run();
 	delete root;
 	delete manager;
@@ -76,6 +81,10 @@ void przyklad1() {
 	CMenuCommand* ala = new CMenuCommand(std::string("Napisz Ala ma kota"), std::string("ala"), printAla, std::string("Wypisuje Ala ma kota"));
 	root->addItem(ala);
 
+	std::cout << root->save();
+	std::cout << std::endl << std::endl;
+	std::string tree = root->save();
+	root->saveFromString(tree, 0);
 	std::cout << root->save();
 	root->run();
 	delete root;

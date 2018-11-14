@@ -5,6 +5,7 @@
 #include <sstream>
 #include <iterator>
 #include "Constants.h"
+#include "CMenuCommand.h"
 
 
 const std::string INCORRECT_INDEX = "Incorrect index";
@@ -13,6 +14,7 @@ const std::string BACK = "back";
 
 class CMenu: public CMenuItem {
 public:
+	CMenu();
 	CMenu(std::string name, std::string command);
 	~CMenu();
 	int addItem(CMenuItem* menuItem);
@@ -25,6 +27,7 @@ public:
 	void setParent(CMenuItem* parent);
 	void search(std::string commandName);
 	std::string save();
+	int saveFromString(std::string tree, int startIndex);
 	
 private:
 	std::vector<CMenuItem*> myCommands;

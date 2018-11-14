@@ -52,6 +52,11 @@ void CMenu::run() {
 	}	
 }
 
+CMenu::CMenu(){
+
+	this->parent = nullptr;
+}
+
 CMenu::CMenu(std::string name, std::string command){
 	this->name = name;
 	this->command = command;
@@ -113,6 +118,7 @@ std::string CMenu::getCommand(){
 	return command;
 }
 
+
 void CMenu::printNameAndCommand() {
 	std::cout << this->toString() << std::endl;
 }
@@ -156,6 +162,87 @@ std::string CMenu::save(){
 	}
 	result += ")";
 	return result;
+}
+
+int CMenu::saveFromString(std::string tree, int startIndex){
+	for (int i = 0; i < myCommands.size(); i++) {
+		delete myCommands[i];
+	}
+	myCommands.clear();
+	int length = tree.length();
+	int currentIndex = startIndex;
+	std::string name;
+	std::string command;
+	std::vector<CMenuItem*> children;
+	if (tree.at(startIndex) == '(') {
+		startIndex++;
+		if (tree.at(startIndex) == '\'') {
+			startIndex++;
+			currentIndex = startIndex;
+			while (currentIndex < length && tree.at(currentIndex) != '\'') {
+						currentIndex++;
+			}
+			name = tree.substr(startIndex, currentIndex - startIndex);
+			currentIndex++;
+			if (tree.at(currentIndex) == ',') {
+				currentIndex++;
+				if(tree.at(currentIndex) == '\''){
+					currentIndex++;
+					startIndex = currentIndex;
+					while (currentIndex < length && tree.at(currentIndex) != '\'') {
+						currentIndex++;
+					}
+					command = tree.substr(startIndex, currentIndex - startIndex);
+					currentIndex++;
+				}
+			}
+			if (tree.at(currentIndex) == ';') {
+				currentIndex++;
+				CMenuItem* child = nullptr;
+				while (tree.at(currentIndex) != ')') {
+					int nextIndex;
+					if (tree.at(currentIndex) == '(') {
+						child = new CMenu();
+						nextIndex = child->saveFromString(tree, currentIndex);
+					}
+					else if(tree.at(currentIndex) == '['){
+						child = new CMenuCommand();
+						nextIndex = child->saveFromString(tree, currentIndex);
+					}
+					else {
+						nextIndex = -1;
+					}
+					if (nextIndex < 0) {
+						if (child != nullptr) {
+							delete child;
+						}
+						for (int i = 0; i < children.size(); i++) {
+							delete children[i];
+						}
+						return nextIndex;
+					}
+					else {
+						currentIndex = nextIndex;
+						children.push_back(child);
+						child->setParent(this);
+						if (tree.at(currentIndex) == ',') {
+							currentIndex++;
+						}
+					}
+				}
+				if (tree.at(currentIndex == ')')) {
+					this->myCommands = children;
+					this->setName(name);
+					this->setCommandName(command);
+					return currentIndex + 1;
+				}
+			}
+
+		}
+		
+	}
+	
+	
 }
 
 bool CMenu::indexCorrect(int index){
