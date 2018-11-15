@@ -18,7 +18,7 @@ public:
 	virtual void setParent(CMenuItem* parent);
 	virtual std::string getDescription();
 	virtual std::string save() = 0;
-	virtual int saveFromString(std::string tree, int startIndex) = 0;
+	virtual int readFromString(std::string tree, int startIndex) = 0;
 	virtual void printParseError(char expectedChar, char actualChar, int stringIndex);
 		
 protected:

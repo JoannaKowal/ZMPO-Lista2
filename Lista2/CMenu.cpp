@@ -164,7 +164,7 @@ std::string CMenu::save(){
 	return result;
 }
 
-int CMenu::saveFromString(std::string tree, int startIndex){
+int CMenu::readFromString(std::string tree, int startIndex){
 	for (int i = 0; i < myCommands.size(); i++) {
 		delete myCommands[i];
 	}
@@ -174,6 +174,7 @@ int CMenu::saveFromString(std::string tree, int startIndex){
 	std::string name;
 	std::string command;
 	std::vector<CMenuItem*> children;
+
 	if (tree.at(startIndex) == CHAR_LEFT_BRACKET) {
 		startIndex++;
 		if (tree.at(startIndex) == CHAR_APOSTROPHE) {
@@ -201,11 +202,11 @@ int CMenu::saveFromString(std::string tree, int startIndex){
 							int nextIndex;
 							if (tree.at(currentIndex) == CHAR_LEFT_BRACKET) {
 								child = new CMenu();
-								nextIndex = child->saveFromString(tree, currentIndex);
+								nextIndex = child->readFromString(tree, currentIndex);
 							}
 							else if (tree.at(currentIndex) == CHAR_LEFT_SQUARE_BRACKET) {
 								child = new CMenuCommand();
-								nextIndex = child->saveFromString(tree, currentIndex);
+								nextIndex = child->readFromString(tree, currentIndex);
 							}
 							else {
 								nextIndex = -1;

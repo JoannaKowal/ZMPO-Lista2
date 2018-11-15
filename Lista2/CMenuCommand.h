@@ -17,7 +17,7 @@ public:
 	std::string getCommand();
 	void search(std::string commandName);
 	std::string save();
-	int saveFromString(std::string tree, int startIndex);
+	int readFromString(std::string tree, int startIndex);
 	
 private:
 	CCommand* myCommand;

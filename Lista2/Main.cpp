@@ -77,7 +77,7 @@ void zadanie1() {
 	std::cout << root->save();
 	std::cout << std::endl << std::endl;
 	std::string tree = root->save();
-	root->saveFromString(tree, 0);
+	root->readFromString(tree, 0);
 	std::cout << root->save();
 	root->run();
 	delete root;
@@ -117,7 +117,7 @@ void przyklad1() {
 	std::cout << root->save();
 	std::cout << std::endl << std::endl;
 	std::string tree = root->save();
-	root->saveFromString(tree, 0);
+	root->readFromString(tree, 0);
 	std::cout << root->save() << std::endl;
 	std::cout << std::endl << std::endl;
 

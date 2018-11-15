@@ -76,7 +76,7 @@ std::string CMenuCommand::save(){
 	return result;
 }
 
-int CMenuCommand::saveFromString(std::string tree, int startIndex){
+int CMenuCommand::readFromString(std::string tree, int startIndex){
 	int length = tree.length();
 	int currentIndex = startIndex;
 	std::string name;
